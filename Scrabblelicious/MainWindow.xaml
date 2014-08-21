@@ -1,0 +1,31 @@
+﻿<Window x:Class="Scrabblelicious.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Scrabblelicious"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListView ItemsSource="{Binding Cells}" Grid.Column="0" Grid.RowSpan="3">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="local:Cell">
+                    <TextBox Text="{Binding Letter, Mode=TwoWay}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="15" />
+                </ItemsPanelTemplate>
+             </ListView.ItemsPanel>
+        </ListView>
+        <TextBlock Text="Available Letters: " Grid.Column="1" Grid.Row="0"/>
+        <TextBox Text="{Binding AvailableLetters, Mode=TwoWay}"  Grid.Column="1" Grid.Row="1" MinWidth="50"/>
+    </Grid>
+</Window>
