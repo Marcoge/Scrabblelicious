@@ -28,7 +28,7 @@ namespace Scrabblelicious
 
         private void FindWordButton_Click(object sender, RoutedEventArgs e)
         {
-           DataContext.FindWord();
+            ((AppContext)DataContext).FindWord();
         }
     }
 }

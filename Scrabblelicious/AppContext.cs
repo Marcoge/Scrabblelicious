@@ -13,23 +13,13 @@ namespace Scrabblelicious
     {
         private string _availableletters;
         private ObservableCollection<Cell> _cells;
-        private TreeNode _dictionary;
+        private static TreeNode _dictionary;
         
         public AppContext()
         {
-            _availableletters = "sioens";
             _cells = new ObservableCollection<Cell>();
             _dictionary = new TreeNode(' ', false);
-            String stemp;
-            StreamReader input = new StreamReader("c:\\temp\\decrypted_deutsch.dic");
-
-            while ((stemp = input.ReadLine()) != null)
-            {
-                String temp1 = parseS(stemp).ToLower();
-                _dictionary.addWord(temp1, _dictionary);
-            }
-
-            input.Close();
+            fillDictionary();
 
             var temp = createCells();
             foreach (Cell c in temp)
@@ -43,15 +33,27 @@ namespace Scrabblelicious
 
         }
 
-        public String AvailableLetters { get { return _availableletters; } set { } }
+        public String AvailableLetters
+        {
+            get { return _availableletters; }
+            set
+            {
+                if (value != _availableletters)
+                {
+                    _availableletters = value;
+                    OnPropertyChanged("AvailableLetters");
+                }
+            }
+        }
+
         public ObservableCollection<Cell> Cells
         {
             get { return _cells; }
             set
             {
-                if (value != Cells)
+                if (value != _cells)
                 {
-                    Cells = value;
+                    _cells = value;
                     OnPropertyChanged("Cells");
                 }
             }
@@ -70,6 +72,20 @@ namespace Scrabblelicious
                 }
             }
             return temp;
+        }
+        
+        private static void fillDictionary()
+        {
+            String stemp;
+            StreamReader input = new StreamReader("c:\\temp\\decrypted_deutsch.dic");
+
+            while ((stemp = input.ReadLine()) != null)
+            {
+                String temp1 = parseS(stemp).ToLower();
+                _dictionary.addWord(temp1, _dictionary);
+            }
+
+            input.Close();
         }
 
         private static String parseS(String s)
