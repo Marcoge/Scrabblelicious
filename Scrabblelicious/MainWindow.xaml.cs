@@ -25,5 +25,10 @@ namespace Scrabblelicious
             InitializeComponent();
             DataContext = new AppContext();
         }
+
+        private void FindWordButton_Click(object sender, RoutedEventArgs e)
+        {
+           DataContext.FindWord();
+        }
     }
 }

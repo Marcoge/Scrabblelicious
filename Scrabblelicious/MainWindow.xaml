@@ -27,5 +27,6 @@
         </ListView>
         <TextBlock Text="Available Letters: " Grid.Column="1" Grid.Row="0"/>
         <TextBox Text="{Binding AvailableLetters, Mode=TwoWay}"  Grid.Column="1" Grid.Row="1" MinWidth="50"/>
+        <Button Content="Find Word" Grid.Column="1" Grid.Row="2" Height="20" VerticalAlignment="Top" Click="FindWordButton_Click"/>
     </Grid>
 </Window>
