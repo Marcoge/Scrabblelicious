@@ -30,7 +30,7 @@ namespace Scrabblelicious
 
         public void FindWord()
         {
-
+            var bla = new WordTester(_availableletters, _dictionary);
         }
 
         public String AvailableLetters
