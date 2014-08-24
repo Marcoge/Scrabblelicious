@@ -1,4 +1,8 @@
-﻿using System;
+﻿/** class takes string and dictionary tree
+ * possible words are put in List<String> _results *
+ * 
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

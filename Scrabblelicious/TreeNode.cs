@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* used to resursively build tree
+ * result will be a tree usable as a dictionary
+ *  
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

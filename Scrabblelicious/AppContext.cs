@@ -11,8 +11,8 @@ namespace Scrabblelicious
 {
     public sealed class AppContext : INotifyPropertyChanged
     {
-        private string _availableletters;
-        private ObservableCollection<Cell> _cells;
+        private static string _availableLetters;
+        private static ObservableCollection<Cell> _cells;
         private static TreeNode _dictionary;
         
         public AppContext()
@@ -30,22 +30,23 @@ namespace Scrabblelicious
 
         public void FindWord()
         {
-            var bla = new WordTester(_availableletters, _dictionary);
+            var bla = new WordTester(_availableLetters, _dictionary);
+            CheckHorizontal();
         }
+
 
         public String AvailableLetters
         {
-            get { return _availableletters; }
+            get { return _availableLetters; }
             set
             {
-                if (value != _availableletters)
+                if (value != _availableLetters)
                 {
-                    _availableletters = value;
+                    _availableLetters = value;
                     OnPropertyChanged("AvailableLetters");
                 }
             }
         }
-
         public ObservableCollection<Cell> Cells
         {
             get { return _cells; }
@@ -73,7 +74,6 @@ namespace Scrabblelicious
             }
             return temp;
         }
-        
         private static void fillDictionary()
         {
             String stemp;
@@ -87,7 +87,6 @@ namespace Scrabblelicious
 
             input.Close();
         }
-
         private static String parseS(String s)
         {
             string st = s;
@@ -97,6 +96,46 @@ namespace Scrabblelicious
                 st = st.Substring(0, index);
             }
             return st;
+        }
+        private static void CheckHorizontal()
+        {
+            List<CellRange> temp = SplitIntoCellRanges("h");
+
+        }
+
+        private static List<CellRange> SplitIntoCellRanges(string p)
+        {
+            List<CellRange> temp = new List<CellRange>();
+            if (p.Equals("h"))
+            {
+                for (int h = 0; h < 15; h++)
+                {
+                    for (int i = 0; i < 14; i++)
+                    {
+                        int LettersInCellRange = 0;
+                        if (CheckIfNewLetterInCellRange(new Pos(h,i)))
+                        {
+                            LettersInCellRange++;
+                        }
+
+                        for (int j = 1; j < (_availableLetters.Length + LettersInCellRange) - i; j++)
+                        {
+                            if (CheckIfNewLetterInCellRange(new Pos(h, j)))
+                            {
+                                LettersInCellRange++;
+                            }
+                            temp.Add(new CellRange((new Pos(h,i)),j));
+                        }
+                    }
+                }
+               
+            }
+            return temp;
+        }
+
+        private static bool CheckIfNewLetterInCellRange(Pos p)
+        {
+            return true;
         }
 
         private void OnPropertyChanged(String propertyName)
