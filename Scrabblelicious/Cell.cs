@@ -14,9 +14,12 @@ namespace Scrabblelicious
         bool _verticalBlock;
         bool _horizontalBlock;
 
-        public Cell(int x, int y)
+        public Cell() { }
+        
+        public Cell(int x, int y, Char l)
         {
             _position = new Pos(x, y);
+            _letter = l;
         }
 
         public Char Letter
@@ -35,7 +38,7 @@ namespace Scrabblelicious
                 }
             }
         }
-        public Pos Position { get; set; }
+        public Pos Position { get { return _position; } set { } }
         public int X { get { return _position.X; } }
         public int Y { get { return _position.Y; } }
         public bool VerticalBlock { get { return _verticalBlock; } set { value = _verticalBlock; } }

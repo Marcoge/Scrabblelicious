@@ -14,6 +14,7 @@ namespace Scrabblelicious
         private static string _availableLetters;
         private static ObservableCollection<Cell> _cells;
         private static TreeNode _dictionary;
+        private static Dictionary<Pos, Cell> dicTemp;
         
         public AppContext()
         {
@@ -69,7 +70,7 @@ namespace Scrabblelicious
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    temp.Add(new Cell(i, j));
+                    temp.Add(new Cell(i, j, '_'));
                 }
             }
             return temp;
@@ -97,8 +98,15 @@ namespace Scrabblelicious
             }
             return st;
         }
+        
         private static void CheckHorizontal()
         {
+            var IECompP = new PosEqualityComparer();
+            dicTemp = new Dictionary<Pos,Cell>(IECompP);
+            foreach (Cell c in _cells)
+            {
+                dicTemp.Add(c.Position, c);
+            }
             List<CellRange> temp = SplitIntoCellRanges("h");
 
         }
@@ -135,7 +143,15 @@ namespace Scrabblelicious
 
         private static bool CheckIfNewLetterInCellRange(Pos p)
         {
-            return true;
+            //var temp = dicTemp[p];
+            if (dicTemp[p].Letter.Equals('_'))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void OnPropertyChanged(String propertyName)

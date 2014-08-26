@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CellRange.cs" />
+    <Compile Include="PosEqualityComparer.cs" />
     <Compile Include="TreeNode.cs" />
     <Compile Include="WordTester.cs" />
     <Page Include="MainWindow.xaml">
