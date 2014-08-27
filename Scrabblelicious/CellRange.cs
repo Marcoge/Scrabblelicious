@@ -13,11 +13,11 @@ namespace Scrabblelicious
 
         public CellRange(Pos start, int length)
         {
-            start = _startingPos;
-            length = _length;
+            _startingPos = start;
+            _length = length;
         }
 
-        public Pos Start { get { return _startingPos; } set { } }
-        public int Length { get { return _length; } set { } }
+        public Pos Start { get { return _startingPos; }  }
+        public int Length { get { return _length; } }
     }
 }

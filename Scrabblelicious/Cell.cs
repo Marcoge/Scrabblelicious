@@ -38,7 +38,7 @@ namespace Scrabblelicious
                 }
             }
         }
-        public Pos Position { get { return _position; } set { } }
+        public Pos Position { get { return _position; } }
         public int X { get { return _position.X; } }
         public int Y { get { return _position.Y; } }
         public bool VerticalBlock { get { return _verticalBlock; } set { value = _verticalBlock; } }

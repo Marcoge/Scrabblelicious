@@ -111,8 +111,6 @@ namespace Scrabblelicious
         private static List<CellRange> SplitIntoCellRanges(string p)
         {
             List<CellRange> temp = new List<CellRange>();
-            Pos posTemp;
-            CellRange RangeTemp;
             if (p.Equals("h"))
             {
                 for (int h = 0; h < 15; h++)
@@ -131,9 +129,7 @@ namespace Scrabblelicious
                             {
                                 LettersInCellRange++;
                             }
-                            posTemp = new Pos(h, i);
-                            RangeTemp = new CellRange(posTemp, j);
-                            temp.Add(RangeTemp);
+                            temp.Add(new CellRange((new Pos(h, i)), j));
                         }
                     }
                 }
