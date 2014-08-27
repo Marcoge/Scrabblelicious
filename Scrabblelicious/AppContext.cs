@@ -14,24 +14,27 @@ namespace Scrabblelicious
         private static string _availableLetters;
         private static ObservableCollection<Cell> _cells;
         private static TreeNode _dictionary;
-        private static Dictionary<Pos, Cell> dicTemp;
+        private static Dictionary<Pos, Cell> _cellsWithPos;
         
         public AppContext()
         {
             _cells = new ObservableCollection<Cell>();
             _dictionary = new TreeNode(' ', false);
+            var IECompP = new PosEqualityComparer();
+            _cellsWithPos = new Dictionary<Pos, Cell>(IECompP);
             fillDictionary();
 
             var temp = createCells();
             foreach (Cell c in temp)
             {
                 _cells.Add(c);
+                _cellsWithPos.Add(c.Position, c);
             }
         }
 
         public void FindWord()
         {
-            var bla = new WordTester(_availableLetters, _dictionary);
+            //var bla = new WordTester(_availableLetters, _dictionary, _availableLetters.Length);
             CheckHorizontal();
         }
 
@@ -101,12 +104,6 @@ namespace Scrabblelicious
         
         private static void CheckHorizontal()
         {
-            var IECompP = new PosEqualityComparer();
-            dicTemp = new Dictionary<Pos,Cell>(IECompP);
-            foreach (Cell c in _cells)
-            {
-                dicTemp.Add(c.Position, c);
-            }
             List<CellRange> temp = SplitIntoCellRanges("h");
 
         }
@@ -114,6 +111,8 @@ namespace Scrabblelicious
         private static List<CellRange> SplitIntoCellRanges(string p)
         {
             List<CellRange> temp = new List<CellRange>();
+            Pos posTemp;
+            CellRange RangeTemp;
             if (p.Equals("h"))
             {
                 for (int h = 0; h < 15; h++)
@@ -132,7 +131,9 @@ namespace Scrabblelicious
                             {
                                 LettersInCellRange++;
                             }
-                            temp.Add(new CellRange((new Pos(h,i)),j));
+                            posTemp = new Pos(h, i);
+                            RangeTemp = new CellRange(posTemp, j);
+                            temp.Add(RangeTemp);
                         }
                     }
                 }
@@ -143,8 +144,7 @@ namespace Scrabblelicious
 
         private static bool CheckIfNewLetterInCellRange(Pos p)
         {
-            //var temp = dicTemp[p];
-            if (dicTemp[p].Letter.Equals('_'))
+            if (_cellsWithPos[p].Letter.Equals('_'))
             {
                 return false;
             }

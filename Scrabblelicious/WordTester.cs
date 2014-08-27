@@ -15,10 +15,12 @@ namespace Scrabblelicious
         private static TreeNode _dict;
         static List<String> _perms = new List<String>();
         private List<String> _results;
+        private static int _maxLength= 0;
 
-        public WordTester(String w, TreeNode d)
+        public WordTester(String w, TreeNode d, int length)
         {
             _dict = d;
+            _maxLength = length;
             _results = tester(w);
         }
 
@@ -38,7 +40,7 @@ namespace Scrabblelicious
             }
 
             var result = new List<List<char>>();
-            for (int i = 0; i < (1 << list.Count); i++)
+            for (int i = 0; i < (1 << _maxLength); i++)
             { // 1 << n == the n-th power of 2
                 var sublist = new List<char>();
                 for (int j = 0; j < list.Count; j++)
