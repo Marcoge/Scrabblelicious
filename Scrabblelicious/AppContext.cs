@@ -73,7 +73,7 @@ namespace Scrabblelicious
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    temp.Add(new Cell(i, j, '_'));
+                    temp.Add(new Cell(i, j));
                 }
             }
             return temp;
@@ -110,6 +110,7 @@ namespace Scrabblelicious
 
         private static List<CellRange> SplitIntoCellRanges(string p)
         {
+            //TODO generation of range at end of row does not work yet
             List<CellRange> temp = new List<CellRange>();
             if (p.Equals("h"))
             {
@@ -118,36 +119,33 @@ namespace Scrabblelicious
                     for (int i = 0; i < 14; i++)
                     {
                         int LettersInCellRange = 0;
-                        if (CheckIfNewLetterInCellRange(new Pos(h,i)))
+                        if (_cellsWithPos[(new Pos(h,i))].HasLetter)
                         {
                             LettersInCellRange++;
                         }
 
-                        for (int j = 1; j < (_availableLetters.Length + LettersInCellRange) - i; j++)
+                        for (int j = 1; j <= _availableLetters.Length + LettersInCellRange; j++)
                         {
-                            if (CheckIfNewLetterInCellRange(new Pos(h, j)))
+                            int CountingHelp = j;
+                            if ((j+i)>=14)
+                            {
+                                j = 15-i;
+                            }
+                            if (_cellsWithPos[(new Pos(h, j))].HasLetter)
                             {
                                 LettersInCellRange++;
                             }
-                            temp.Add(new CellRange((new Pos(h, i)), j));
+                            if (LettersInCellRange != 0 & LettersInCellRange != j)
+                            {
+                                temp.Add(new CellRange((new Pos(h, i)), j));
+                            }
+                            j = CountingHelp;
                         }
                     }
                 }
                
             }
             return temp;
-        }
-
-        private static bool CheckIfNewLetterInCellRange(Pos p)
-        {
-            if (_cellsWithPos[p].Letter.Equals('_'))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
 
         private void OnPropertyChanged(String propertyName)
