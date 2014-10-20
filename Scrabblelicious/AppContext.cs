@@ -126,12 +126,11 @@ namespace Scrabblelicious
 
                         for (int j = 1; j <= _availableLetters.Length + LettersInCellRange; j++)
                         {
-                            int CountingHelp = j;
-                            if ((j+i)>=14)
+                            if ((j+i)>14)
                             {
-                                j = 15-i;
+                                break;
                             }
-                            if (_cellsWithPos[(new Pos(h, j))].HasLetter)
+                            if (_cellsWithPos[(new Pos(h, (j+i)))].HasLetter)
                             {
                                 LettersInCellRange++;
                             }
@@ -139,8 +138,7 @@ namespace Scrabblelicious
                             {
                                 temp.Add(new CellRange((new Pos(h, i)), j));
                             }
-                            j = CountingHelp;
-                        }
+                       }
                     }
                 }
                
